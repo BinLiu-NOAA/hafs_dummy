@@ -3,7 +3,7 @@
 	url = gerrit:NEMSfv3gfs
 	branch = HAFS
 [submodule "EMC_post"]
-	path = sorc/hafs_upp.fd
+	path = sorc/hafs_post.fd
 	url = gerrit:EMC_post
 	branch = HAFS
 [submodule "ProdGSI"]
