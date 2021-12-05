@@ -1,14 +1,14 @@
-name: Pull Request Tests
+name: Check the pull request is up to date
 on:
   pull_request:
-    branches: ['main']
-    types: [assigned, opened, synchronize, reopened, labeled]
+    branches: [${{ github.event.repository.default_branch }}]
+    types: [assigned, opened, synchronize, reopened]
 env:
   app: Accept:application/vnd.github.v3+json
 
 jobs:
-  repocheck:
-    name: Check if repos are up to date
+  pull_request_check:
+    name: Check if the pull request is up to date
     runs-on: ubuntu-latest
 
     outputs:
@@ -20,14 +20,9 @@ jobs:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
 
-    - name: Check if PR is up to date
+    - name: Check if the pull request is up to date
       run: |
-        #pr_commit=$(git log -1 --format='%H')
-        #echo "pr_commit: $pr_commit"
-        #pr_target=$(git log remotes/origin/main -1 --format='%H')
-        #echo "pr_target: $pr_target"
-        #if git merge-base --is-ancestor ${pr_target} ${pr_commit}; then
-        if git merge-base --is-ancestor remotes/origin/main @; then
+        if git merge-base --is-ancestor ${{ github.event.repository.default_branch }} @; then
           echo "This pull request is up to date with the base branch."
         else
           echo "This pull request is not up to date with the base branch. Please sync it up."
