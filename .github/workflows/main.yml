@@ -2,7 +2,7 @@ name: Pull Request Tests
 on:
   pull_request:
     branches: ['main']
-    types: ['labeled']
+    types: [assigned, opened, synchronize, reopened, labeled]
 env:
   app: Accept:application/vnd.github.v3+json
 
@@ -18,26 +18,18 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-
-    - name: Wait for caching source
-      run: sleep 10
+        ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Check if PR is up to date
       run: |
-        git remote -vv
-        git fetch
-        git branch -vva
-        pr_commit=$(git log -1 --format='%H')
-        echo "pr_commit: $pr_commit"
-        pr_target=$(git log remotes/origin/main -1 --format='%H')
-        echo "pr_target: $pr_target"
-        echo 'before git merge-base'
-        git log > gitlog
-        cat gitlog
-        echo "git merge-base --is-ancestor ${pr_target} ${pr_commit}"
+        #pr_commit=$(git log -1 --format='%H')
+        #echo "pr_commit: $pr_commit"
+        #pr_target=$(git log remotes/origin/main -1 --format='%H')
+        #echo "pr_target: $pr_target"
+        #if git merge-base --is-ancestor ${pr_target} ${pr_commit}; then
         if git merge-base --is-ancestor remotes/origin/main @; then
-          echo "This pull request is up to date with the target branch."
+          echo "This pull request is up to date with the base branch."
         else
-          echo "This pull request is not up to date with the target branch. Please sync it up."
+          echo "This pull request is not up to date with the base branch. Please sync it up."
           exit 1
         fi
