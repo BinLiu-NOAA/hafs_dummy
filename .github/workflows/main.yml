@@ -20,10 +20,11 @@ jobs:
     - name: Check if PR is up to date
       run: |
         git remote -vv
-        pr_commit=$(git log -1 --format='%H')
-        echo "pr_commit: $pr_commit"
         git fetch
         git branch -vva
+        git pull
+        pr_commit=$(git log -1 --format='%H')
+        echo "pr_commit: $pr_commit"
         pr_target=$(git log remotes/origin/main -1 --format='%H')
         echo "pr_target: $pr_target"
         git rev-list $pr_commit
