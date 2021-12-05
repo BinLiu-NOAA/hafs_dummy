@@ -26,7 +26,7 @@ jobs:
         git branch -vva
         pr_target=$(git log remotes/origin/main -1 --format='%H')
         echo "pr_target: $pr_target"
-        git log -10
+        git log
         git merge-base --is-ancestor ${pr_target} ${pr_commit}; echo $?
         if git merge-base --is-ancestor remotes/origin/main ${pr_commit}; then
           echo "This pull request is up to date with the target branch."
