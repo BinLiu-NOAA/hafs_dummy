@@ -27,7 +27,7 @@ jobs:
         pr_target=$(git log remotes/origin/main -1 --format='%H')
         echo "pr_target: $pr_target"
         git rev-list $pr_commit
-        git log -20 --format='%H'
+        echo 'before git merge-base'
         git merge-base --is-ancestor ${pr_target} ${pr_commit}
         echo $?
         if git merge-base --is-ancestor remotes/origin/main ${pr_commit}; then
