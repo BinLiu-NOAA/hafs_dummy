@@ -24,7 +24,12 @@ jobs:
 
     - name: Check if PR is up to date
       run: |
-        if git merge-base --is-ancestor remotes/origin/main @; then
+        pr_commit=$(git log -1 --format='%H')
+        echo "pr_commit: $pr_commit"
+        pr_target=$(git log remotes/origin/main -1 --format='%H')
+        echo "pr_target: $pr_target"
+        #if git merge-base --is-ancestor remotes/origin/main @; then
+        if git merge-base --is-ancestor ${pr_target} ${pr_commit}; then
           echo "This pull request is up to date with the target branch."
         else
           echo "This pull request is not up to date with the target branch. Please sync it up."
