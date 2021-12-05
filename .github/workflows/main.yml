@@ -1,7 +1,11 @@
-name: Check the pull request is up to date
+name: Pull Request Check
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
     types: [assigned, opened, synchronize, reopened]
 env:
   app: Accept:application/vnd.github.v3+json
