@@ -1,7 +1,7 @@
 name: Check the pull request is up to date
 on:
   pull_request:
-    branches: [${{ github.event.repository.default_branch }}]
+    branches: [$default_branch]
     types: [assigned, opened, synchronize, reopened]
 env:
   app: Accept:application/vnd.github.v3+json
@@ -22,7 +22,7 @@ jobs:
 
     - name: Check if the pull request is up to date
       run: |
-        if git merge-base --is-ancestor ${{ github.event.repository.default_branch }} @; then
+        if git merge-base --is-ancestor $default_branch @; then
           echo "This pull request is up to date with the base branch."
         else
           echo "This pull request is not up to date with the base branch. Please sync it up."
