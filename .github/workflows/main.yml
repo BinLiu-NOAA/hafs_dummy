@@ -27,11 +27,11 @@ jobs:
         git branch -vva
         pr_commit=$(git log -1 --format='%H')
         echo "pr_commit: $pr_commit"
-        pr_target=$(git log remotes/origin/main -1 --format='%H')
+        pr_target=$(git log remotes/origin/develop -1 --format='%H')
         echo "pr_target: $pr_target"
         echo 'before git merge-base'
         echo "git merge-base --is-ancestor ${pr_target} ${pr_commit}"
-        if git merge-base --is-ancestor remotes/origin/main @; then
+        if git merge-base --is-ancestor remotes/origin/develop @; then
           echo "This pull request is up to date with the target branch."
         else
           echo "This pull request is not up to date with the target branch. Please sync it up."
