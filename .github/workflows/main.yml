@@ -23,10 +23,12 @@ jobs:
     - name: Check if PR is up to date
       run: |
         git remote -vv
-        git branch -vva
         pr_commit=$(git log -1 --format='%H')
         echo "pr_commit: $pr_commit"
-        if [[ git merge-base --is-ancestor ${pr_commit} ${pr_commit} ]]; then
+        git branch -vva
+        git fetch
+        git branch -vva
+        if $(git merge-base --is-ancestor ${pr_commit} ${pr_commit}); then
           echo "This pull request is up to date with the target branch."
           exit 0
         else
