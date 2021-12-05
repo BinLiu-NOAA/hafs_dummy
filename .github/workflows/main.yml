@@ -17,12 +17,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Wait for caching source
+      run: sleep 10
+
+    - uses: actions/cache@v2
+
     - name: Check if PR is up to date
       run: |
         git remote -vv
         git fetch
         git branch -vva
-        git pull
         pr_commit=$(git log -1 --format='%H')
         echo "pr_commit: $pr_commit"
         pr_target=$(git log remotes/origin/main -1 --format='%H')
