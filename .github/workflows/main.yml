@@ -1,11 +1,9 @@
 name: Pull Request Check
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
     types: [assigned, opened, synchronize, reopened, labeled]
 env:
   app: Accept:application/vnd.github.v3+json
@@ -14,9 +12,6 @@ jobs:
   pull_request_check:
     name: Check if the pull request is up to date
     runs-on: ubuntu-latest
-
-    outputs:
-      current: ${{ steps.check.outputs.current }}
 
     steps:
     - uses: actions/checkout@v2
