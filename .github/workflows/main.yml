@@ -1,10 +1,10 @@
 name: Pull Request Check
 on:
   push:
-    branches: [main]
+    branches: [$default-branch]
   pull_request:
-    branches: [main]
-    types: [assigned, opened, synchronize, reopened, labeled]
+    branches: [$default-branch]
+    types: [opened, synchronize, reopened]
 env:
   app: Accept:application/vnd.github.v3+json
 
