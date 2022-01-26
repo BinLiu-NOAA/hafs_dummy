@@ -27,9 +27,3 @@ jobs:
           echo "This pull request is not up to date with the base branch. Please sync it up."
           exit 1
         fi
-        if git diff --check remotes/origin/main @; then
-          echo "No trailing whitespace."
-        else
-          echo "Please remove the trailing whitespace(s) introduced in this pull request."
-          exit 1
-        fi
