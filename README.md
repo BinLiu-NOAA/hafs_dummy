@@ -12,3 +12,11 @@ Test PR status check.
 Test out-dated PR branch.
 
 Update README.md.
+
+Test trailing whitespace ...      
+  
+Empty line should be fine through.
+
+
+
+End test trailing whitespace.
